@@ -110,7 +110,6 @@ public class LoginViewModel extends ViewModel {
                 Toast.makeText(ctx,e.toString(),Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void singIn() {
