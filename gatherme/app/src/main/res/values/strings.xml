@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">Gatherme</string>
     <string name="boton_home">home</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sing_in">Sing in</string>
+    <string name="sing_up">Sing up</string>
+    <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="gender">Gender</string>
+    <string name="city">City</string>
+    <string name="register">Register</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="age">Age</string>
+    <string name="emptyField">The Field cannot be empty</string>
+    <string name="notEmail">It is not an email</string>
 </resources>

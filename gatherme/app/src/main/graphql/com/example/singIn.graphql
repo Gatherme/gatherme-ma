@@ -1,0 +1,6 @@
+query getUserByEmail($email: String!){
+    userByEmail(email: $email){email}
+}
+mutation userSingIn($user:signinInput!){
+    singIn(account: $user){token}
+}
