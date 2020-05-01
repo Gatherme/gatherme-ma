@@ -2,4 +2,20 @@
 <resources>
     <string name="app_name">Gatherme</string>
     <string name="boton_home">Casa</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="sing_in">Iniciar seción</string>
+    <string name="sing_up">Registar</string>
+    <string name="login">Inicio de seción</string>
+    <string name="name">Nombre</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="gender">Genero</string>
+    <string name="city">Ciudad</string>
+    <string name="register">Registro</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+    <string name="other">Otro</string>
+    <string name="age">Edad</string>
+    <string name="emptyField">El campo no puede estar vacío</string>
+    <string name="notEmail">No es un correo</string>
 </resources>
