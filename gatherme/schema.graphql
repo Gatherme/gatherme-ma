@@ -91,6 +91,7 @@ type Query {
     getMessagesbyChatId(chatId: String!): responseMessages!
     getSuggestion(id: String!): [sugg_SuggestionInfo!]
     inboxRequests(user: RequestGetInput): [Request!]
+    likeByCategory(name: String!): [sugg_Like]!
     likeById(id: String!): Like!
     likes: [sugg_Like!]
     likesByCategory(category: String!): [Like!]
@@ -101,6 +102,7 @@ type Query {
     userById(id: String!): User!
     userByUsername(username: String!): User!
     users: [sugg_User!]
+    usersLikes(id: String!): [sugg_Like]!
 }
 
 type Request {
