@@ -1,0 +1,9 @@
+mutation registerUser($user: register!){
+    register(user: $user){token error}
+}
+query  existUsername($user: String!){
+    userByUsername(username: $user){
+        id
+        username
+    }
+}

@@ -18,4 +18,9 @@
     <string name="age">Edad</string>
     <string name="emptyField">El campo no puede estar vacío</string>
     <string name="notEmail">No es un correo</string>
+    <string name="emailNotFound">Correo no encontrado</string>
+    <string name="passwordError">contraseña incorrecta</string>
+    <string name="emailOrPasswordError">Error en el correo o contraseña</string>
+    <string name="emailIsTaken">El correo ya está registrado</string>
+    <string name="usernameIsTaken">El nombre de usuario ya está registrado</string>
 </resources>
