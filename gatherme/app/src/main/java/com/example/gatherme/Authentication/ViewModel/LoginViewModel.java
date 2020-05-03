@@ -102,25 +102,22 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
-    public void singIn() {
+    public void singIn(ApolloCall.Callback<UserSingInMutation.Data> callback) {
         AuthRepository.userSingIn(user.getEmail(), user.getPassword(), new ApolloCall.Callback<UserSingInMutation.Data>() {
             @Override
-            public void onResponse(@NotNull Response<UserSingInMutation.Data> response) {
-                if(response.getData() == null){
-                    String message = ctx.getString(R.string.emailOrPasswordError);
-                    Log.e(TAG,message);
-                    Toast.makeText(ctx, message,Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent intent = new Intent(ctx, MainActivity.class);
-                    ctx.startActivity(intent);
-                }
+            public void onResponse(@Nullable Response<UserSingInMutation.Data> response) {
+                callback.onResponse(response);
             }
 
             @Override
             public void onFailure(@NotNull ApolloException e) {
-                Log.e(TAG,e.getMessage());
+                callback.onFailure(e);
             }
         });
+    }
+    public void toHome(){
+        Intent intent = new Intent(ctx,MainActivity.class);
+        ctx.startActivity(intent);
     }
 
 

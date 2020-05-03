@@ -19,7 +19,8 @@
     <string name="notEmail">It is not an email</string>
     <string name="emailNotFound">Email not Found</string>
     <string name="passwordError">Password incorrect</string>
-    <string name="emailOrPasswordError">Error in email or password</string>
+    <string name="emailOrPasswordError">Error: email or password</string>
     <string name="emailIsTaken">That email is already taken</string>
     <string name="usernameIsTaken">That username is already taken</string>
+    <string name="welcome">Welcome</string>
 </resources>

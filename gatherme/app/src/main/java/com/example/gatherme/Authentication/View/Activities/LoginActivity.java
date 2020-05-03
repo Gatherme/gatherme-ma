@@ -7,19 +7,28 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.apollographql.apollo.ApolloCall;
+import com.apollographql.apollo.api.Response;
+import com.apollographql.apollo.exception.ApolloException;
+import com.example.UserSingInMutation;
 import com.example.gatherme.Authentication.Repository.UserAuth;
 import com.example.gatherme.Authentication.ViewModel.LoginViewModel;
 import com.example.gatherme.Enums.FieldStatus;
+import com.example.gatherme.MainActivity;
 import com.example.gatherme.R;
 import com.example.gatherme.Register.View.Activities.RegisterActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "LoginActivity";
     private TextInputLayout emailEditText;
     private TextInputLayout passwordEditText;
     private Button singInButton;
@@ -57,7 +66,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(validateEmail(emailStatus)&&validatePassword(passwordStatus)){
                     viewModel.setUser(new UserAuth(email,password));
                     viewModel.setCtx(this);
-                    viewModel.singIn();
+                    viewModel.singIn(new ApolloCall.Callback<UserSingInMutation.Data>() {
+                        @Override
+                        public void onResponse(@NotNull Response<UserSingInMutation.Data> response) {
+                            if(response.getData() == null){
+                                String message = getString(R.string.emailOrPasswordError);
+                                Log.e(TAG,message);
+                                showToast(message);
+                            }else{
+                                viewModel.toHome();
+                                showToast("Welcome");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NotNull ApolloException e) {
+
+                        }
+                    });
                 }else {
                     Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
                 }
@@ -108,5 +134,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
         return ans;
+    }
+    private void showToast(String message){
+        Thread thread = new Thread(){
+            public void run(){
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 }
