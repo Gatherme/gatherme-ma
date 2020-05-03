@@ -4,17 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.gatherme.Authentication.View.Activities.LoginActivity;
 import com.example.gatherme.Enums.FieldStatus;
 import com.example.gatherme.R;
 import com.example.gatherme.Register.Repository.UserRegisterModel;
@@ -107,22 +112,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             viewModel.existEmail(new ApolloCall.Callback<GetUserByEmailQuery.Data>() {
                 @Override
                 public void onResponse(@Nullable Response<GetUserByEmailQuery.Data> response) {
-                    if (response.getData()==null){
-                        validateEmail(FieldStatus.EMAIL_IS_TAKEN);
-                    }else{
+                    if (response.getData() != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                validateEmail(FieldStatus.EMAIL_IS_TAKEN);
+                            }
+                        });
+
+                    } else {
                         viewModel.existUsername(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
                             @Override
                             public void onResponse(@Nullable Response<ExistUsernameQuery.Data> response) {
-                                if (response.getData()==null){
-                                    validateUsername(FieldStatus.USERNAME_IS_TAKEN);
-                                }else {
+                                if (response.getData() != null) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            validateUsername(FieldStatus.USERNAME_IS_TAKEN);
+
+                                        }
+                                    });
+
+                                } else {
                                     viewModel.registerUser();
+                                    viewModel.toHome();
                                 }
                             }
 
                             @Override
                             public void onFailure(@NotNull ApolloException e) {
-                                Log.e(TAG,"Username Error: "+e.getMessage());
+                                Log.e(TAG, "Username Error: " + e.getMessage());
                             }
                         });
                     }
@@ -131,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onFailure(@NotNull ApolloException e) {
-                    Log.e(TAG, "Message Error: "+e.getMessage());
+                    Log.e(TAG, "Message Error: " + e.getMessage());
                 }
             });
 
@@ -214,6 +233,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
         return ans;
+    }
+
+    private void showToast(String message) {
+        Thread thread = new Thread() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 }
 

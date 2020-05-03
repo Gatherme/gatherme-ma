@@ -1,6 +1,7 @@
 package com.example.gatherme.Register.ViewModel;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.lifecycle.ViewModel;
 
@@ -10,6 +11,7 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
 import com.example.gatherme.Enums.FieldStatus;
+import com.example.gatherme.MainActivity;
 import com.example.gatherme.Register.Repository.RegisterRepository;
 import com.example.gatherme.Register.Repository.UserRegisterModel;
 import com.type.Register;
@@ -137,5 +139,9 @@ public class RegisterViewModel extends ViewModel {
                 callback.onFailure(e);
             }
         });
+    }
+    public void toHome(){
+        Intent intent = new Intent(ctx, MainActivity.class);
+        ctx.startActivity(intent);
     }
 }

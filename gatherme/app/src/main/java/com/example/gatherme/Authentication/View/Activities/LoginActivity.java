@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 showToast(message);
                             }else{
                                 viewModel.toHome();
-                                showToast("Welcome");
+                                showToast(getString(R.string.welcome));
                             }
                         }
 
