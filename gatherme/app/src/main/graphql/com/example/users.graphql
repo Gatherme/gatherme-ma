@@ -3,3 +3,10 @@ query getUsers{
         id
     }
 }
+query getUserById($id: String!){
+    userById(id: $id){
+        id
+        email
+        username
+    }
+}

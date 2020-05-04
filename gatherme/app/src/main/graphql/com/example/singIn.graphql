@@ -1,5 +1,5 @@
 query getUserByEmail($email: String!){
-    userByEmail(email: $email){email}
+    userByEmail(email: $email){id email username}
 }
 mutation userSingIn($email:String!, $password: String!){
     singIn(account: {email: $email

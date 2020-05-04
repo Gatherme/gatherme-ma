@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button singInButton;
     private Button singUpButton;
     private LoginViewModel viewModel;
-
+    private Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //onClick
         singInButton.setOnClickListener((View.OnClickListener) this);
         singUpButton.setOnClickListener((View.OnClickListener) this);
+        //sharedPreferences
+        ctx = this;
+
     }
 
     @Override
