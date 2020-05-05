@@ -30,6 +30,7 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        viewModel.setCtx(getApplicationContext());
         viewModel.singOut();
         finish();
     }

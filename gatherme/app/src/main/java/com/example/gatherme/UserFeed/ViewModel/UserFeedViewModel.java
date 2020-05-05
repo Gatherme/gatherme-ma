@@ -47,6 +47,11 @@ public class UserFeedViewModel extends ViewModel {
             public void onResponse(@NotNull Response<TokenOutMutation.Data> response) {
                 goToSingIn();
                 Log.i(TAG,"Sing Out");
+                SharedPreferencesCon.deleteValue(ctx,Reference.PASSWORD);
+                SharedPreferencesCon.deleteValue(ctx,Reference.EMAIL);
+                SharedPreferencesCon.deleteValue(ctx,Reference.TOKEN);
+                SharedPreferencesCon.deleteValue(ctx,Reference.USERNAME);
+                SharedPreferencesCon.deleteValue(ctx,Reference.ID);
             }
 
             @Override
@@ -58,6 +63,7 @@ public class UserFeedViewModel extends ViewModel {
 
     public void goToSingIn(){
         Intent intent = new Intent(ctx, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(intent);
     }
 }

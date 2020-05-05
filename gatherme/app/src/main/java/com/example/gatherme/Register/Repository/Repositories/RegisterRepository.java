@@ -1,12 +1,12 @@
-package com.example.gatherme.Register.Repository;
+package com.example.gatherme.Register.Repository.Repositories;
 
 import android.util.Log;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.GetUserByUsernameQuery;
 import com.example.RegisterUserMutation;
 import com.example.gatherme.Data.API.ApolloConnector;
 import com.type.Register;
@@ -21,7 +21,11 @@ public class RegisterRepository {
         ApolloConnector.setupApollo().mutate(registerUserMutation).enqueue(new ApolloCall.Callback<RegisterUserMutation.Data>() {
             @Override
             public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
-                Log.d(TAG,response.getData().toString());
+                try {
+                    Log.d(TAG,response.getData().toString());
+                }catch (NullPointerException e){
+                    Log.e(TAG,e.getMessage());
+                }
                 callback.onResponse(response);
             }
 
@@ -60,17 +64,17 @@ public class RegisterRepository {
                 });
     }
 
-    public static void userByUsername(String name, ApolloCall.Callback<ExistUsernameQuery.Data> callback) {
+    public static void userByUsername(String name, ApolloCall.Callback<GetUserByUsernameQuery.Data> callback) {
         //ExistUsernameQuery existUsernameQuery = ExistUsernameQuery.builder().user(name).build();
         ApolloConnector.setupApollo().query(
-                ExistUsernameQuery
+                GetUserByUsernameQuery
                         .builder()
                         .user(name)
                         .build())
-                .enqueue(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
+                .enqueue(new ApolloCall.Callback<GetUserByUsernameQuery.Data>() {
 
                     @Override
-                    public void onResponse(@NotNull Response<ExistUsernameQuery.Data> response) {
+                    public void onResponse(@NotNull Response<GetUserByUsernameQuery.Data> response) {
                         if (response.getData() == null) {
                             Log.d(TAG, "null");
                         } else {

@@ -1,4 +1,4 @@
-package com.example.gatherme.Register.Repository;
+package com.example.gatherme.Register.Repository.Model;
 
 import java.util.ArrayList;
 import java.util.List;

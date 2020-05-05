@@ -10,16 +10,12 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.GetUserByEmailQuery;
-import com.example.GetUsersQuery;
-import com.example.TokenAuthMutation;
 import com.example.UserSingInMutation;
 import com.example.gatherme.Authentication.Repository.Repositories.AuthRepository;
 import com.example.gatherme.Authentication.Repository.Model.UserAuth;
-import com.example.gatherme.Data.API.ApolloConnector;
 import com.example.gatherme.Data.Database.SharedPreferencesCon;
 import com.example.gatherme.Enums.FieldStatus;
 import com.example.gatherme.Enums.Reference;
-import com.example.gatherme.MainActivity;
 import com.example.gatherme.UserFeed.View.Activities.FeedActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -106,23 +102,10 @@ public class LoginViewModel extends ViewModel {
 
     public void toHome() {
         Intent intent = new Intent(ctx, FeedActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(intent);
     }
 
-    public void validateToken(ApolloCall.Callback<TokenAuthMutation.Data> callback) {
-        String token = SharedPreferencesCon.read(ctx, Reference.TOKEN);
-        AuthRepository.tokenAuth(token, new ApolloCall.Callback<TokenAuthMutation.Data>() {
-            @Override
-            public void onResponse(@NotNull Response<TokenAuthMutation.Data> response) {
-                callback.onResponse(response);
-            }
-
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-                callback.onFailure(e);
-            }
-        });
-    }
 
 
 }
