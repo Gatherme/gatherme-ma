@@ -1,26 +1,26 @@
 package com.example.gatherme.Authentication.View.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.UserSingInMutation;
-import com.example.gatherme.Authentication.Repository.UserAuth;
+import com.example.gatherme.Authentication.Repository.Model.UserAuth;
 import com.example.gatherme.Authentication.ViewModel.LoginViewModel;
+import com.example.gatherme.Data.Database.SharedPreferencesCon;
 import com.example.gatherme.Enums.FieldStatus;
-import com.example.gatherme.MainActivity;
+import com.example.gatherme.Enums.Reference;
 import com.example.gatherme.R;
 import com.example.gatherme.Register.View.Activities.RegisterActivity;
 import com.google.android.material.textfield.TextInputLayout;
@@ -40,7 +40,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         configView();
+        initSeason();
     }
+
 
     private void configView() {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -53,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //onClick
         singInButton.setOnClickListener((View.OnClickListener) this);
         singUpButton.setOnClickListener((View.OnClickListener) this);
+
     }
 
     @Override
@@ -63,29 +66,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String password = passwordEditText.getEditText().getText().toString();
                 FieldStatus emailStatus = viewModel.validateEmailField(email);
                 FieldStatus passwordStatus = viewModel.validatePasswordField(password);
-                if(validateEmail(emailStatus)&&validatePassword(passwordStatus)){
-                    viewModel.setUser(new UserAuth(email,password));
+                if (validateEmail(emailStatus) && validatePassword(passwordStatus)) {
+                    viewModel.setUser(new UserAuth(email, password));
                     viewModel.setCtx(this);
                     viewModel.singIn(new ApolloCall.Callback<UserSingInMutation.Data>() {
                         @Override
                         public void onResponse(@NotNull Response<UserSingInMutation.Data> response) {
-                            if(response.getData() == null){
+                            if (response.getData() == null) {
                                 String message = getString(R.string.emailOrPasswordError);
-                                Log.e(TAG,message);
+                                Log.e(TAG, message);
                                 showToast(message);
-                            }else{
+                            } else {
+                                viewModel.setCtx(getApplicationContext());
+                                //Used shared preferences to save user info
+                                viewModel.getAndSaveUsersByEmail();
+
+                                String token = response.getData().singIn().token();
+                                SharedPreferencesCon.save(getApplicationContext(), Reference.TOKEN, token);
+                                SharedPreferencesCon.save(getApplicationContext(), Reference.PASSWORD, password);
+
                                 viewModel.toHome();
-                                showToast("Welcome");
+                                finish();
+                                showToast(getString(R.string.welcome));
                             }
                         }
 
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
-
+                            Log.e(TAG, "onFailure-->"+e.getMessage());
                         }
                     });
-                }else {
-                    Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.buttonSingUp1:
@@ -116,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 ans = true;
                 break;
         }
-        return  ans;
+        return ans;
     }
 
     private boolean validatePassword(FieldStatus statusCode) {
@@ -135,9 +147,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         return ans;
     }
-    private void showToast(String message){
-        Thread thread = new Thread(){
-            public void run(){
+
+    private void showToast(String message) {
+        Thread thread = new Thread() {
+            public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -147,4 +160,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
         thread.start();
     }
+
+    private void initSeason() {
+        String email = SharedPreferencesCon.read(getApplicationContext(), Reference.EMAIL);
+        String password = SharedPreferencesCon.read(getApplicationContext(), Reference.PASSWORD);
+        String defVal = SharedPreferencesCon.defValue;
+        Log.d(TAG,email);
+        if (!email.equals(defVal) && !password.equals(defVal)) {
+            viewModel.setUser(new UserAuth(email, password));
+            viewModel.setCtx(getApplicationContext());
+            viewModel.singIn(new ApolloCall.Callback<UserSingInMutation.Data>() {
+                @Override
+                public void onResponse(@NotNull Response<UserSingInMutation.Data> response) {
+                    if (response.getData() == null) {
+                        String message = getString(R.string.emailOrPasswordError);
+                        Log.e(TAG, message);
+                        showToast(message);
+                    } else {
+                        viewModel.setCtx(getApplicationContext());
+                        //Used shared preferences to save user info
+                        viewModel.getAndSaveUsersByEmail();
+                        String token = response.getData().singIn().token();
+                        SharedPreferencesCon.save(getApplicationContext(), Reference.TOKEN, token);
+                        SharedPreferencesCon.save(getApplicationContext(), Reference.PASSWORD, password);
+                        viewModel.toHome();
+                        finish();
+                        showToast(getString(R.string.welcome));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull ApolloException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            });
+        }else {
+            Log.i(TAG,"Not user info");
+        }
+    }
+
 }

@@ -9,15 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.GetUserByUsernameQuery;
+import com.example.RegisterUserMutation;
 import com.example.gatherme.Enums.FieldStatus;
 import com.example.gatherme.R;
-import com.example.gatherme.Register.Repository.UserRegisterModel;
+import com.example.gatherme.Register.Repository.Model.UserRegisterModel;
 import com.example.gatherme.Register.ViewModel.RegisterViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -107,22 +109,52 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             viewModel.existEmail(new ApolloCall.Callback<GetUserByEmailQuery.Data>() {
                 @Override
                 public void onResponse(@Nullable Response<GetUserByEmailQuery.Data> response) {
-                    if (response.getData()==null){
-                        validateEmail(FieldStatus.EMAIL_IS_TAKEN);
-                    }else{
-                        viewModel.existUsername(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
+                    if (response.getData() != null) {
+                        runOnUiThread(new Runnable() {
                             @Override
-                            public void onResponse(@Nullable Response<ExistUsernameQuery.Data> response) {
-                                if (response.getData()==null){
-                                    validateUsername(FieldStatus.USERNAME_IS_TAKEN);
-                                }else {
-                                    viewModel.registerUser();
+                            public void run() {
+                                validateEmail(FieldStatus.EMAIL_IS_TAKEN);
+                            }
+                        });
+
+                    } else {
+                        viewModel.existUsername(new ApolloCall.Callback<GetUserByUsernameQuery.Data>() {
+                            @Override
+                            public void onResponse(@Nullable Response<GetUserByUsernameQuery.Data> response) {
+                                if (response.getData() != null) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            validateUsername(FieldStatus.USERNAME_IS_TAKEN);
+
+                                        }
+                                    });
+
+                                } else {
+                                    //Register and save user info
+                                    viewModel.setCtx(getApplicationContext());
+                                    viewModel.registerUser(new ApolloCall.Callback<RegisterUserMutation.Data>() {
+                                        @Override
+                                        public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
+                                            Log.i(TAG,"Register");
+                                            showToast(getString(R.string.user_toast_register));
+                                            viewModel.toDescription();
+                                            finish();
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NotNull ApolloException e) {
+
+                                        }
+                                    });
+
                                 }
                             }
 
                             @Override
                             public void onFailure(@NotNull ApolloException e) {
-                                Log.e(TAG,"Username Error: "+e.getMessage());
+                                Log.e(TAG, "Username Error: " + e.getMessage());
                             }
                         });
                     }
@@ -131,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onFailure(@NotNull ApolloException e) {
-                    Log.e(TAG, "Message Error: "+e.getMessage());
+                    Log.e(TAG, "Message Error: " + e.getMessage());
                 }
             });
 
@@ -214,6 +246,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
         return ans;
+    }
+
+    private void showToast(String message) {
+        Thread thread = new Thread() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 }
 

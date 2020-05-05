@@ -1,7 +1,4 @@
-query getUserByEmail($email: String!){
-    userByEmail(email: $email){email}
-}
 mutation userSingIn($email:String!, $password: String!){
     singIn(account: {email: $email
-        password: $password}){token message}
+        password: $password}){token message nickName email}
 }

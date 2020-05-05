@@ -1,4 +1,4 @@
-package com.example.gatherme.Authentication.Repository;
+package com.example.gatherme.Authentication.Repository.Repositories;
 
 import android.util.Log;
 
@@ -49,7 +49,7 @@ public class AuthRepository {
                 new ApolloCall.Callback<UserSingInMutation.Data>() {
                     @Override
                     public void onResponse(@NotNull Response<UserSingInMutation.Data> response) {
-                        callback.onResponse( response);
+                        callback.onResponse(response);
                     }
 
                     @Override
@@ -59,4 +59,6 @@ public class AuthRepository {
                 }
         );
     }
+
+
 }

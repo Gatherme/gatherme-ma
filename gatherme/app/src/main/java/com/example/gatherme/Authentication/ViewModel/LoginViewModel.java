@@ -3,7 +3,6 @@ package com.example.gatherme.Authentication.ViewModel;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModel;
 
@@ -11,14 +10,13 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.GetUserByEmailQuery;
-import com.example.GetUsersQuery;
 import com.example.UserSingInMutation;
-import com.example.gatherme.Authentication.Repository.AuthRepository;
-import com.example.gatherme.Authentication.Repository.UserAuth;
-import com.example.gatherme.Data.API.ApolloConnector;
+import com.example.gatherme.Authentication.Repository.Repositories.AuthRepository;
+import com.example.gatherme.Authentication.Repository.Model.UserAuth;
+import com.example.gatherme.Data.Database.SharedPreferencesCon;
 import com.example.gatherme.Enums.FieldStatus;
-import com.example.gatherme.MainActivity;
-import com.example.gatherme.R;
+import com.example.gatherme.Enums.Reference;
+import com.example.gatherme.UserFeed.View.Activities.FeedActivity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -64,18 +62,22 @@ public class LoginViewModel extends ViewModel {
         return text.isEmpty();
     }
 
-    public void existEmail() {
+    public void getAndSaveUsersByEmail() {
 
         AuthRepository.userByEmail(user.getEmail(), new ApolloCall.Callback<GetUserByEmailQuery.Data>() {
             @Override
             public void onResponse(@Nullable Response<GetUserByEmailQuery.Data> response) {
                 if (response.getData() != null) {
                     Log.d(TAG, "email: " + response.getData().userByEmail().email());
-                }else{
-                    Log.d(TAG, "null");
+                    SharedPreferencesCon.save(ctx, Reference.EMAIL, response.getData().userByEmail().email());
+                    SharedPreferencesCon.save(ctx, Reference.ID, response.getData().userByEmail().id());
+                    SharedPreferencesCon.save(ctx, Reference.USERNAME, response.getData().userByEmail().username());
+                } else {
+                    Log.e(TAG, "email null??? NANI");
                 }
 
             }
+
             @Override
             public void onFailure(@NotNull ApolloException e) {
                 Log.d(TAG, "Exception " + e.getMessage(), e);
@@ -83,24 +85,6 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
-
-    public void users() {
-        ApolloConnector.setupApollo().query(
-                GetUsersQuery
-                        .builder()
-                        .build()
-        ).enqueue(new ApolloCall.Callback<GetUsersQuery.Data>() {
-            @Override
-            public void onResponse(@NotNull Response<GetUsersQuery.Data> response) {
-                Log.d(TAG, "ans Users:" + response.getData().users().get(1).id());
-            }
-
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-                Log.d(TAG, "**************************Exception " + e.getMessage(), e);
-            }
-        });
-    }
 
     public void singIn(ApolloCall.Callback<UserSingInMutation.Data> callback) {
         AuthRepository.userSingIn(user.getEmail(), user.getPassword(), new ApolloCall.Callback<UserSingInMutation.Data>() {
@@ -115,10 +99,13 @@ public class LoginViewModel extends ViewModel {
             }
         });
     }
-    public void toHome(){
-        Intent intent = new Intent(ctx,MainActivity.class);
+
+    public void toHome() {
+        Intent intent = new Intent(ctx, FeedActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(intent);
     }
+
 
 
 }

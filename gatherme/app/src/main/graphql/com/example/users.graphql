@@ -3,3 +3,37 @@ query getUsers{
         id
     }
 }
+query getUserById($id: String!){
+    userById(id: $id){
+        id
+        email
+        username
+        activities
+        age
+        city
+        communities
+        description
+        gathers
+        gender
+        likes
+        name
+        picture
+        error
+    }
+}
+query  getUserByUsername($user: String!){
+    userByUsername(username: $user){
+        id
+        username
+    }
+}
+query getUserByEmail($email: String!){
+    userByEmail(email: $email){id email username}
+}
+
+mutation updateUser($user: UserInputUpdate!){
+    updateUser(user: $user){
+        error
+        result
+    }
+}

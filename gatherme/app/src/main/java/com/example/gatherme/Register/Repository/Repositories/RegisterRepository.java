@@ -1,12 +1,12 @@
-package com.example.gatherme.Register.Repository;
+package com.example.gatherme.Register.Repository.Repositories;
 
 import android.util.Log;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.GetUserByUsernameQuery;
 import com.example.RegisterUserMutation;
 import com.example.gatherme.Data.API.ApolloConnector;
 import com.type.Register;
@@ -16,11 +16,16 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterRepository {
     private static final String TAG = "RegisterRepository";
 
-    public static void registerUser(Register user, ApolloCall.Callback callback) {
+    public static void registerUser(Register user, ApolloCall.Callback<RegisterUserMutation.Data> callback) {
         RegisterUserMutation registerUserMutation = RegisterUserMutation.builder().user(user).build();
         ApolloConnector.setupApollo().mutate(registerUserMutation).enqueue(new ApolloCall.Callback<RegisterUserMutation.Data>() {
             @Override
             public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
+                try {
+                    Log.d(TAG,response.getData().toString());
+                }catch (NullPointerException e){
+                    Log.e(TAG,e.getMessage());
+                }
                 callback.onResponse(response);
             }
 
@@ -59,31 +64,31 @@ public class RegisterRepository {
                 });
     }
 
-    public static void userByUsername(String name, ApolloCall.Callback<ExistUsernameQuery.Data> callback) {
+    public static void userByUsername(String name, ApolloCall.Callback<GetUserByUsernameQuery.Data> callback) {
         //ExistUsernameQuery existUsernameQuery = ExistUsernameQuery.builder().user(name).build();
         ApolloConnector.setupApollo().query(
-                ExistUsernameQuery
+                GetUserByUsernameQuery
                         .builder()
                         .user(name)
                         .build())
-                .enqueue(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
+                .enqueue(new ApolloCall.Callback<GetUserByUsernameQuery.Data>() {
 
-            @Override
-            public void onResponse(@NotNull Response<ExistUsernameQuery.Data> response) {
-                if (response.getData() == null) {
-                    Log.d(TAG, "null");
-                } else {
-                    Log.d(TAG, response.getData().toString());
-                    Log.d(TAG, "Username: " + response.getData().userByUsername().username());
+                    @Override
+                    public void onResponse(@NotNull Response<GetUserByUsernameQuery.Data> response) {
+                        if (response.getData() == null) {
+                            Log.d(TAG, "null");
+                        } else {
+                            Log.d(TAG, response.getData().toString());
+                            Log.d(TAG, "Username: " + response.getData().userByUsername().username());
 
-                }
-                callback.onResponse(response);
-            }
+                        }
+                        callback.onResponse(response);
+                    }
 
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-                callback.onFailure(e);
-            }
-        });
+                    @Override
+                    public void onFailure(@NotNull ApolloException e) {
+                        callback.onFailure(e);
+                    }
+                });
     }
 }
