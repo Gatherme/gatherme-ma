@@ -14,7 +14,7 @@
         <activity android:name=".Register.View.Activities.RegisterActivity"></activity>
         <activity android:name=".Authentication.View.Activities.LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Splash.View.Activities.SplashActivity">
+        <activity android:name=".Tinder.View.Activities.TinderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

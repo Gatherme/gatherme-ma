@@ -1,0 +1,26 @@
+query getSuggestion ($id: String!){
+    getSuggestion(id:$id){suggestedUser{name}}
+}
+
+query userByUsername ($username: String!){
+    userByUsername(username:$username){
+        username,
+        name,
+        email,
+        picture,
+        description,
+        gender,
+        age,
+        city,
+        likes,
+        communities,
+        activities,
+        gathers }
+}
+
+mutation createSuggest ($id: String!){
+    createSuggest(user:{
+        id:$id
+    }){suggestion{id} suggestedUser{name}}
+}
+

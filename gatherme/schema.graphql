@@ -1,523 +1,523 @@
 # This file was generated based on ".graphqlconfig". Do not edit manually.
 
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }
 
 type Activity {
-    administrador: String!
-    banner: String!
-    categoria: [String]
-    comments: [Comment]
-    descripcion: String!
-    fecha: String!
-    hora: String!
-    id: Int
-    informacion: String!
-    likes: [String]
-    lista_miembros: [String]
-    lugar: String!
-    nombre: String!
-    notas_adicionales: [String]
-    reccurrente: Boolean!
+  administrador: String!
+  banner: String!
+  categoria: [String]
+  comments: [Comment]
+  descripcion: String!
+  fecha: String!
+  hora: String!
+  id: Int
+  informacion: String!
+  likes: [String]
+  lista_miembros: [String]
+  lugar: String!
+  nombre: String!
+  notas_adicionales: [String]
+  recurrente: Boolean!
 }
 
 type Comment {
-    content: String!
-    date: String!
-    id: Int!
-    userId: String!
+  content: String!
+  date: String!
+  id: Int!
+  userId: String!
 }
 
 type Like {
-    category: String
-    error: String
-    id: String
-    name: String
+  category: String
+  error: String
+  id: String
+  name: String
 }
 
 type Mutation {
-    acceptRequest(body: RequestInput): RequestResponse
-    addLikeToUser(like: String!, token: String!, username: String!): ReturnCreationLike!
-    addMember(id: Int, token: String, user: String): ReturnId
-    authorization(token: tokenInput!): responseAuth!
-    commentActivity(comment: CommentInput, id: Int): Response
-    createActivity(activity: ActivityInput, token: String): ReturnId
-    createChat(chat: chatInput!): responseChat!
-    createLike(like: LikeInput!, token: String!, username: String!): Like!
-    createMessage(message: messageInput!): responseMessage!
-    createReport(reportInfo: sugg_reportInfoInput!): sugg_responseReport!
-    createRequest(body: RequestInput): RequestResponse
-    createSuggest(user: sugg_UserSingle): [sugg_SuggestionInfo]
-    createUser(user: UserInput!): User!
-    deactivate(suggestion: sugg_SuggestionInput): sugg_responseSuggestion
-    deleteActivity(id: Int): Response
-    deleteChat(id: String!): responseChat!
-    deleteLike(id: inputDelete!): responseDelete!
-    deleteMessage(id: String!): responseMessage!
-    deleteUser(id: inputDelete!): responseDelete!
-    eraseRequest(body: RequestInput): RequestResponse
-    newCategory(category: sugg_CategoryInput): sugg_responseCategory
-    newGather(userInfo: sugg_UserGathers): sugg_responseUser
-    newIs(likeInfo: sugg_LikeRelationship): sugg_responseLike
-    newLike(userInfo: sugg_UserLike): sugg_responseUser
-    newUser(user: sugg_UserInput): sugg_responseUser
-    register(user: register!): responseUser!
-    rejectRequest(body: RequestInput): RequestResponse
-    singIn(account: signinInput!): responseUPIN!
-    singOut(token: tokenInput!): responseOut!
-    singUp(account: singupInput!): responseUPIN!
-    sugg_createLike(like: sugg_LikeInput): sugg_responseLike
-    test(user: testUser!): responseDelete!
-    updateActivity(activity: ActivityInput, id: Int): ReturnId
-    updateAdministrator(activity: AdministratorInputUpdate): Activity
-    updateLike(like: LikeInputUpdate!): responseDelete!
-    updateUser(user: UserInputUpdate!): responseDelete!
+  acceptRequest(body: RequestInput): RequestResponse
+  addLikeToUser(like: String!, token: String!, username: String!): ReturnCreationLike!
+  addMember(id: Int, token: String, user: String): ReturnId
+  authorization(token: tokenInput!): responseAuth!
+  commentActivity(comment: CommentInput, id: Int): Response
+  createActivity(activity: ActivityInput, token: String): ReturnId
+  createChat(chat: chatInput!): responseChat!
+  createLike(like: LikeInput!, token: String!, username: String!): Like!
+  createMessage(message: messageInput!): responseMessage!
+  createReport(reportInfo: sugg_reportInfoInput!): sugg_responseReport!
+  createRequest(body: RequestInput): RequestResponse
+  createSuggest(user: sugg_UserSingle): [sugg_SuggestionInfo]
+  createUser(user: UserInput!): User!
+  deactivate(suggestion: sugg_SuggestionInput): sugg_responseSuggestion
+  deleteActivity(id: Int): Response
+  deleteChat(id: String!): responseChat!
+  deleteLike(id: inputDelete!): responseDelete!
+  deleteMessage(id: String!): responseMessage!
+  deleteUser(id: inputDelete!): responseDelete!
+  eraseRequest(body: RequestInput): RequestResponse
+  newCategory(category: sugg_CategoryInput): sugg_responseCategory
+  newGather(userInfo: sugg_UserGathers): sugg_responseUser
+  newIs(likeInfo: sugg_LikeRelationship): sugg_responseLike
+  newLike(userInfo: sugg_UserLike): sugg_responseUser
+  newUser(user: sugg_UserInput): sugg_responseUser
+  register(user: register!): responseUser!
+  rejectRequest(body: RequestInput): RequestResponse
+  singIn(account: signinInput!): responseUPIN!
+  singOut(token: tokenInput!): responseOut!
+  singUp(account: singupInput!): responseUPIN!
+  sugg_createLike(like: sugg_LikeInput): sugg_responseLike
+  test(user: testUser!): responseDelete!
+  updateActivity(activity: ActivityInput, id: Int): ReturnId
+  updateAdministrator(activity: AdministratorInputUpdate): Activity
+  updateLike(like: LikeInputUpdate!): responseDelete!
+  updateUser(user: UserInputUpdate!): responseDelete!
 }
 
 type Query {
-    categories: [sugg_Category!]
-    existLike(name: String!): Boolean!
-    filterByCategory(name: String!): [sugg_User!]
-    filterByLike(name: String!): [sugg_User!]
-    getActivitiesByCategory(category: String!): [Activity]
-    getActivitiesByLike(like: String!): [Activity]
-    getActivityByID(id: Int!): Activity!
-    getAllActivities: [Activity]
-    getChatbyId(id: String!): responseChat!
-    getChatsbynickName(nickName: String!): responseChats!
-    getMessagebyId(id: String!): responseMessage!
-    getMessagesbyChatId(chatId: String!): responseMessages!
-    getSuggestion(id: String!): [sugg_SuggestionInfo!]
-    inboxRequests(user: RequestGetInput): [Request!]
-    likeByCategory(name: String!): [sugg_Like]!
-    likeById(id: String!): Like!
-    likes: [sugg_Like!]
-    likesByCategory(category: String!): [Like!]
-    reports: [sugg_report!]
-    sentRequests(user: RequestGetInput): [Request]!
-    suggestions: [sugg_Suggestion!]
-    userByEmail(email: String!): User!
-    userById(id: String!): User!
-    userByUsername(username: String!): User!
-    users: [sugg_User!]
-    usersLikes(id: String!): [sugg_Like]!
+  categories: [sugg_Category!]
+  existLike(name: String!): Boolean!
+  filterByCategory(name: String!): [sugg_User!]
+  filterByLike(name: String!): [sugg_User!]
+  getActivitiesByCategory(category: String!): [Activity]
+  getActivitiesByLike(like: String!): [Activity]
+  getActivityByID(id: Int!): Activity!
+  getAllActivities: [Activity]
+  getChatbyId(id: String!): responseChat!
+  getChatsbynickName(nickName: String!): responseChats!
+  getMessagebyId(id: String!): responseMessage!
+  getMessagesbyChatId(chatId: String!): responseMessages!
+  getSuggestion(id: String!): [sugg_SuggestionInfo!]
+  inboxRequests(user: RequestGetInput): [Request!]
+  likeByCategory(name: String!): [sugg_Like]!
+  likeById(id: String!): Like!
+  likes: [sugg_Like!]
+  likesByCategory(category: String!): [Like!]
+  reports: [sugg_report!]
+  sentRequests(user: RequestGetInput): [Request]!
+  suggestions: [sugg_Suggestion!]
+  userByEmail(email: String!): User!
+  userById(id: String!): User!
+  userByUsername(username: String!): User!
+  users: [sugg_User!]
+  usersLikes(id: String!): [sugg_Like]!
 }
 
 type Request {
-    id: Int!
-    send_date: String!
-    status: String!
-    user_destination: String!
-    user_origin: String!
+  id: Int!
+  send_date: String!
+  status: String!
+  user_destination: String!
+  user_origin: String!
 }
 
 type RequestResponse {
-    error: String
-    result: String
+  error: String
+  result: String
 }
 
 type Response {
-    Status: Int
+  Status: Int
 }
 
 type ReturnCreationLike {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type ReturnId {
-    id: Int
+  id: Int
 }
 
 type User {
-    activities: [Int!]
-    age: Int!
-    city: String!
-    communities: [Int!]
-    description: String!
-    email: String!
-    error: String
-    gathers: [String!]
-    gender: String!
-    id: String!
-    likes: [String!]
-    name: String!
-    picture: String!
-    username: String!
+  activities: [Int!]
+  age: Int!
+  city: String!
+  communities: [Int!]
+  description: String!
+  email: String!
+  error: String
+  gathers: [String!]
+  gender: String!
+  id: String!
+  likes: [String!]
+  name: String!
+  picture: String!
+  username: String!
 }
 
 type account {
-    _id: String!
-    email: String!
-    nickName: String!
-    password: String!
+  _id: String!
+  email: String!
+  nickName: String!
+  password: String!
 }
 
 type chat {
-    _id: String!
-    creationDate: String!
-    nickName1: String!
-    nickName2: String!
+  _id: String!
+  creationDate: String!
+  nickName1: String!
+  nickName2: String!
 }
 
 type message {
-    Date: String!
-    _id: String!
-    chatId: String!
-    message: String!
-    owner: String!
+  Date: String!
+  _id: String!
+  chatId: String!
+  message: String!
+  owner: String!
 }
 
 type responseAuth {
-    authorization: String
-    message: String
+  authorization: String
+  message: String
 }
 
 type responseChat {
-    _id: String
-    creationDate: String
-    message: String
-    nickName1: String
-    nickName2: String
+  _id: String
+  creationDate: String
+  message: String
+  nickName1: String
+  nickName2: String
 }
 
 type responseChats {
-    chats: [chat]
-    message: String
+  chats: [chat]
+  message: String
 }
 
 type responseDelete {
-    error: String
-    result: String
+  error: String
+  result: String
 }
 
 type responseMessage {
-    Date: String
-    _id: String
-    chatId: String
-    message: String
-    owner: String
+  Date: String
+  _id: String
+  chatId: String
+  message: String
+  owner: String
 }
 
 type responseMessages {
-    message: String
-    messages: [message]
+  message: String
+  messages: [message]
 }
 
 type responseOut {
-    message: String
-    tokenstored: token
+  message: String
+  tokenstored: token
 }
 
 type responseUPIN {
-    email: String
-    message: String
-    nickName: String
-    token: String
+  email: String
+  message: String
+  nickName: String
+  token: String
 }
 
 type responseUser {
-    activities: [Int]
-    age: Int
-    city: String
-    communities: [Int]
-    description: String
-    email: String
-    error: String
-    gathers: [String]
-    gender: String
-    id: String
-    likes: [String]
-    name: String
-    picture: String
-    token: String
-    username: String
+  activities: [Int]
+  age: Int
+  city: String
+  communities: [Int]
+  description: String
+  email: String
+  error: String
+  gathers: [String]
+  gender: String
+  id: String
+  likes: [String]
+  name: String
+  picture: String
+  token: String
+  username: String
 }
 
 type sugg_Category {
-    name: String!
+  name: String!
 }
 
 type sugg_Like {
-    name: String!
+  name: String!
 }
 
 type sugg_LikeInfo {
-    category: sugg_Category!
-    like: sugg_Like!
+  category: sugg_Category!
+  like: sugg_Like!
 }
 
 type sugg_Suggestion {
-    id: String!
-    isActive: Boolean
+  id: String!
+  isActive: Boolean
 }
 
 type sugg_SuggestionInfo {
-    suggestedUser: sugg_User!
-    suggestion: sugg_Suggestion!
+  suggestedUser: sugg_User!
+  suggestion: sugg_Suggestion!
 }
 
 type sugg_User {
-    id: String!
-    name: String
+  id: String!
+  name: String
 }
 
 type sugg_UserInfo {
-    gathers: [sugg_User]
-    likes: [sugg_Like]
-    suggestion: [sugg_Suggestion]
-    user: sugg_User!
+  gathers: [sugg_User]
+  likes: [sugg_Like]
+  suggestion: [sugg_Suggestion]
+  user: sugg_User!
 }
 
 type sugg_report {
-    commentary: String
-    id: String!
+  commentary: String
+  id: String!
 }
 
 type sugg_responseCategory {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type sugg_responseLike {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type sugg_responseReport {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type sugg_responseSuggestion {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type sugg_responseUser {
-    ans: String
-    error: String
+  ans: String
+  error: String
 }
 
 type token {
-    _id: String!
-    token: String!
+  _id: String!
+  token: String!
 }
 
 input ActivityInput {
-    administrador: String!
-    banner: String!
-    categoria: [String]
-    descripcion: String!
-    fecha: String!
-    hora: String!
-    informacion: String!
-    likes: [String]
-    lista_miembros: [String]
-    lugar: String!
-    nombre: String!
-    notas_adicionales: [String]
-    reccurrente: Boolean!
+  administrador: String!
+  banner: String!
+  categoria: [String]
+  descripcion: String!
+  fecha: String!
+  hora: String!
+  informacion: String!
+  likes: [String]
+  lista_miembros: [String]
+  lugar: String!
+  nombre: String!
+  notas_adicionales: [String]
+  recurrente: Boolean!
 }
 
 input ActivityInputDelete {
-    id: Int!
+  id: Int!
 }
 
 input ActivityInputUpdate {
-    banner: String!
-    categoria: [String]
-    descripcion: String!
-    fecha: String!
-    hora: String!
-    informacion: String!
-    likes: [String]
-    lista_miembros: [String]
-    lugar: String!
-    nombre: String!
-    notas_adicionales: [String]
-    reccurrente: Boolean!
+  banner: String!
+  categoria: [String]
+  descripcion: String!
+  fecha: String!
+  hora: String!
+  informacion: String!
+  likes: [String]
+  lista_miembros: [String]
+  lugar: String!
+  nombre: String!
+  notas_adicionales: [String]
+  recurrente: Boolean!
 }
 
 input AdministratorInputUpdate {
-    administrador: String!
-    banner: String!
-    categoria: String!
-    descripcion: String!
-    fecha: String!
-    hora: String!
-    id: Int!
-    informacion: String!
-    likes: [String]
-    lista_miembros: [String]
-    lugar: String!
-    newAdministrator: String!
-    nombre: String!
-    notas_adicionales: [String]
-    reccurrente: Boolean!
+  administrador: String!
+  banner: String!
+  categoria: String!
+  descripcion: String!
+  fecha: String!
+  hora: String!
+  id: Int!
+  informacion: String!
+  likes: [String]
+  lista_miembros: [String]
+  lugar: String!
+  newAdministrator: String!
+  nombre: String!
+  notas_adicionales: [String]
+  recurrente: Boolean!
 }
 
 input CommentInput {
-    content: String!
-    date: String!
-    userId: String!
+  content: String!
+  date: String!
+  userId: String!
 }
 
 input LikeInput {
-    category: String!
-    name: String!
+  category: String!
+  name: String!
 }
 
 input LikeInputUpdate {
-    category: String!
-    id: String!
-    name: String!
+  category: String!
+  id: String!
+  name: String!
 }
 
 input RequestGetInput {
-    user: String!
+  user: String!
 }
 
 input RequestInput {
-    token: String
-    user_destination: String!
-    user_origin: String!
+  token: String
+  user_destination: String!
+  user_origin: String!
 }
 
 input UserInput {
-    activities: [Int!]
-    age: Int!
-    city: String!
-    communities: [Int!]
-    description: String!
-    email: String!
-    gathers: [String!]
-    gender: String!
-    likes: [String!]
-    name: String!
-    picture: String!
-    username: String!
+  activities: [Int!]
+  age: Int!
+  city: String!
+  communities: [Int!]
+  description: String!
+  email: String!
+  gathers: [String!]
+  gender: String!
+  likes: [String!]
+  name: String!
+  picture: String!
+  username: String!
 }
 
 input UserInputUpdate {
-    activities: [Int!]
-    age: Int!
-    city: String!
-    communities: [Int!]
-    description: String!
-    email: String!
-    gathers: [String!]
-    gender: String!
-    id: String!
-    likes: [String!]
-    name: String!
-    picture: String!
-    username: String!
+  activities: [Int!]
+  age: Int!
+  city: String!
+  communities: [Int!]
+  description: String!
+  email: String!
+  gathers: [String!]
+  gender: String!
+  id: String!
+  likes: [String!]
+  name: String!
+  picture: String!
+  username: String!
 }
 
 input chatInput {
-    nickName1: String!
-    nickName2: String!
+  nickName1: String!
+  nickName2: String!
 }
 
 input inputDelete {
-    id: String!
+  id: String!
 }
 
 input messageInput {
-    chatId: String!
-    message: String!
-    owner: String!
+  chatId: String!
+  message: String!
+  owner: String!
 }
 
 input register {
-    activities: [Int!]
-    age: Int!
-    city: String!
-    communities: [Int!]
-    description: String!
-    email: String!
-    gathers: [String!]
-    gender: String!
-    likes: [String!]
-    name: String!
-    password: String!
-    picture: String!
-    username: String!
+  activities: [Int!]
+  age: Int!
+  city: String!
+  communities: [Int!]
+  description: String!
+  email: String!
+  gathers: [String!]
+  gender: String!
+  likes: [String!]
+  name: String!
+  password: String!
+  picture: String!
+  username: String!
 }
 
 input signinInput {
-    email: String!
-    password: String!
+  email: String!
+  password: String!
 }
 
 input singupInput {
-    email: String!
-    nickName: String!
-    password: String!
+  email: String!
+  nickName: String!
+  password: String!
 }
 
 input sugg_CategoryInput {
-    name: String!
+  name: String!
 }
 
 input sugg_LikeInput {
-    name: String!
+  name: String!
 }
 
 input sugg_LikeRelationship {
-    category: sugg_CategoryInput!
-    like: sugg_LikeInput!
+  category: sugg_CategoryInput!
+  like: sugg_LikeInput!
 }
 
 input sugg_SuggestionInput {
-    id: String!
+  id: String!
 }
 
 input sugg_UserGathers {
-    gathers: [sugg_UserInput!]!
-    user: sugg_UserInput!
+  gathers: [sugg_UserInput!]!
+  user: sugg_UserInput!
 }
 
 input sugg_UserInput {
-    id: String!
-    name: String
+  id: String!
+  name: String
 }
 
 input sugg_UserLike {
-    likes: [sugg_LikeInput!]!
-    user: sugg_UserInput!
+  likes: [sugg_LikeInput!]!
+  user: sugg_UserInput!
 }
 
 input sugg_UserSingle {
-    id: String!
+  id: String!
 }
 
 input sugg_reportInfoInput {
-    report: sugg_reportInputN!
-    user: sugg_UserInput!
-    userReported: sugg_UserInput!
+  report: sugg_reportInputN!
+  user: sugg_UserInput!
+  userReported: sugg_UserInput!
 }
 
 input sugg_reportInput {
-    commentary: String!
-    id: String!
+  commentary: String!
+  id: String!
 }
 
 input sugg_reportInputN {
-    commentary: String!
+  commentary: String!
 }
 
 input testUser {
-    activities: Int!
-    token: String!
-    username: String!
+  activities: Int!
+  token: String!
+  username: String!
 }
 
 input tokenInput {
-    token: String!
+  token: String!
 }
 
 
