@@ -6,8 +6,6 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.GetUserByEmailQuery;
-import com.example.TokenAuthMutation;
-import com.example.TokenOutMutation;
 import com.example.UserSingInMutation;
 import com.example.gatherme.Data.API.ApolloConnector;
 
@@ -60,30 +58,6 @@ public class AuthRepository {
                     }
                 }
         );
-    }
-
-    public static void tokenAuth(String token, ApolloCall.Callback<TokenAuthMutation.Data> callback) {
-        TokenAuthMutation tokenAuthMutation = TokenAuthMutation.builder().token(token).build();
-        ApolloConnector.setupApollo().mutate(tokenAuthMutation).enqueue(
-                new ApolloCall.Callback<TokenAuthMutation.Data>() {
-                    @Override
-                    public void onResponse(@NotNull Response<TokenAuthMutation.Data> response) {
-                        try {
-                            Log.d(TAG,response.getData().toString());
-                        }catch (NullPointerException e){
-                            Log.e(TAG,e.getMessage());
-                        }
-
-                        callback.onResponse(response);
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull ApolloException e) {
-                        callback.onFailure(e);
-                    }
-                }
-        );
-
     }
 
 

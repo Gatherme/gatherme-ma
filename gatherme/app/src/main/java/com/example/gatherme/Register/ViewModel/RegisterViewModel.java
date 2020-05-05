@@ -9,15 +9,15 @@ import androidx.lifecycle.ViewModel;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.GetUserByUsernameQuery;
 import com.example.RegisterUserMutation;
 import com.example.gatherme.Data.Database.SharedPreferencesCon;
+import com.example.gatherme.EditProfile.View.Activities.EditDescriptionActivity;
 import com.example.gatherme.Enums.FieldStatus;
 import com.example.gatherme.Enums.Reference;
-import com.example.gatherme.MainActivity;
-import com.example.gatherme.Register.Repository.RegisterRepository;
-import com.example.gatherme.Register.Repository.UserRegisterModel;
+import com.example.gatherme.Register.Repository.Repositories.RegisterRepository;
+import com.example.gatherme.Register.Repository.Model.UserRegisterModel;
 import com.example.gatherme.UserFeed.View.Activities.FeedActivity;
 import com.type.Register;
 
@@ -88,7 +88,7 @@ public class RegisterViewModel extends ViewModel {
         }
     }
 
-    public void registerUser() {
+    public void registerUser(ApolloCall.Callback<RegisterUserMutation.Data> callback) {
         Register registerUser = Register.builder()
                 .username(user.getUsername())
                 .name(user.getName())
@@ -106,13 +106,22 @@ public class RegisterViewModel extends ViewModel {
         RegisterRepository.registerUser(registerUser, new ApolloCall.Callback<RegisterUserMutation.Data>() {
             @Override
             public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
-                Log.i(TAG, "User was register");
-                Log.d(TAG,response.getData().toString());
-                //Save data
-                SharedPreferencesCon.save(ctx, Reference.ID,response.getData().register().id());
-                SharedPreferencesCon.save(ctx,Reference.TOKEN,response.getData().register().token());
-                SharedPreferencesCon.save(ctx,Reference.EMAIL,user.getEmail());
-                SharedPreferencesCon.save(ctx,Reference.USERNAME,user.getUsername());
+                try {
+                    //Save data
+
+                    SharedPreferencesCon.save(ctx, Reference.ID, response.getData().register().id());
+                    SharedPreferencesCon.save(ctx, Reference.TOKEN, response.getData().register().token());
+                    SharedPreferencesCon.save(ctx, Reference.EMAIL, user.getEmail());
+                    SharedPreferencesCon.save(ctx, Reference.USERNAME, user.getUsername());
+
+                    Log.d(TAG, response.getData().toString());
+                    Log.i(TAG, "User was register");
+
+                    callback.onResponse(response);
+                } catch (NullPointerException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
             }
 
             @Override
@@ -138,10 +147,10 @@ public class RegisterViewModel extends ViewModel {
         });
     }
 
-    public void existUsername(ApolloCall.Callback<ExistUsernameQuery.Data> callback) {
-        RegisterRepository.userByUsername(user.getUsername(), new ApolloCall.Callback<ExistUsernameQuery.Data>() {
+    public void existUsername(ApolloCall.Callback<GetUserByUsernameQuery.Data> callback) {
+        RegisterRepository.userByUsername(user.getUsername(), new ApolloCall.Callback<GetUserByUsernameQuery.Data>() {
             @Override
-            public void onResponse(@Nullable Response<ExistUsernameQuery.Data> response) {
+            public void onResponse(@Nullable Response<GetUserByUsernameQuery.Data> response) {
                 callback.onResponse(response);
             }
 
@@ -152,8 +161,9 @@ public class RegisterViewModel extends ViewModel {
         });
     }
 
-    public void toHome() {
-        Intent intent = new Intent(ctx, FeedActivity.class);
+    public void toDescription() {
+        Intent intent = new Intent(ctx, EditDescriptionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(intent);
     }
 }

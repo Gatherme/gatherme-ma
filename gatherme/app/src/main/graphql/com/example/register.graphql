@@ -7,9 +7,3 @@ mutation registerUser($user: register!){
         email
     }
 }
-query  existUsername($user: String!){
-    userByUsername(username: $user){
-        id
-        username
-    }
-}

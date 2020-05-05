@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +14,12 @@ import android.widget.Toast;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
-import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
-import com.example.gatherme.Authentication.View.Activities.LoginActivity;
+import com.example.GetUserByUsernameQuery;
+import com.example.RegisterUserMutation;
 import com.example.gatherme.Enums.FieldStatus;
 import com.example.gatherme.R;
-import com.example.gatherme.Register.Repository.UserRegisterModel;
+import com.example.gatherme.Register.Repository.Model.UserRegisterModel;
 import com.example.gatherme.Register.ViewModel.RegisterViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -121,9 +118,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
 
                     } else {
-                        viewModel.existUsername(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
+                        viewModel.existUsername(new ApolloCall.Callback<GetUserByUsernameQuery.Data>() {
                             @Override
-                            public void onResponse(@Nullable Response<ExistUsernameQuery.Data> response) {
+                            public void onResponse(@Nullable Response<GetUserByUsernameQuery.Data> response) {
                                 if (response.getData() != null) {
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -136,9 +133,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 } else {
                                     //Register and save user info
                                     viewModel.setCtx(getApplicationContext());
-                                    viewModel.registerUser();
-                                    viewModel.toHome();
-                                    finish();
+                                    viewModel.registerUser(new ApolloCall.Callback<RegisterUserMutation.Data>() {
+                                        @Override
+                                        public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
+                                            Log.i(TAG,"Register");
+                                            showToast(getString(R.string.user_toast_register));
+                                            viewModel.toDescription();
+                                            finish();
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NotNull ApolloException e) {
+
+                                        }
+                                    });
+
                                 }
                             }
 

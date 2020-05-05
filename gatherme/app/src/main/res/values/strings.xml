@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Gatherme</string>
-    <string name="boton_home">home</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sing_in">Sing in</string>
@@ -27,4 +26,7 @@
     <string name="save">Save</string>
     <string name="descriptionSubTitle">Tell us about yourself</string>
     <string name="sing_out">Sing out</string>
+    <string name="data_update">Data update satisfactorily</string>
+    <string name="user_toast_register">user has been registered</string>
+    <string name="toast_error_data">Error getting user data</string>
 </resources>
