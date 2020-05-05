@@ -162,8 +162,10 @@ public class TinderActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
+
                 //TODO cambiar por nickname
-                String nick = rowItems.get(0).getNombre();
+                Card temp = (Card) dataObject;
+                String nick = temp.getNombre();
 
                 Log.d(TAG,"solicitud " + nick);
                 viewModel.setUser_destination(nick);
