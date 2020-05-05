@@ -16,11 +16,12 @@ import org.jetbrains.annotations.NotNull;
 public class RegisterRepository {
     private static final String TAG = "RegisterRepository";
 
-    public static void registerUser(Register user, ApolloCall.Callback callback) {
+    public static void registerUser(Register user, ApolloCall.Callback<RegisterUserMutation.Data> callback) {
         RegisterUserMutation registerUserMutation = RegisterUserMutation.builder().user(user).build();
         ApolloConnector.setupApollo().mutate(registerUserMutation).enqueue(new ApolloCall.Callback<RegisterUserMutation.Data>() {
             @Override
             public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
+                Log.d(TAG,response.getData().toString());
                 callback.onResponse(response);
             }
 
@@ -68,22 +69,22 @@ public class RegisterRepository {
                         .build())
                 .enqueue(new ApolloCall.Callback<ExistUsernameQuery.Data>() {
 
-            @Override
-            public void onResponse(@NotNull Response<ExistUsernameQuery.Data> response) {
-                if (response.getData() == null) {
-                    Log.d(TAG, "null");
-                } else {
-                    Log.d(TAG, response.getData().toString());
-                    Log.d(TAG, "Username: " + response.getData().userByUsername().username());
+                    @Override
+                    public void onResponse(@NotNull Response<ExistUsernameQuery.Data> response) {
+                        if (response.getData() == null) {
+                            Log.d(TAG, "null");
+                        } else {
+                            Log.d(TAG, response.getData().toString());
+                            Log.d(TAG, "Username: " + response.getData().userByUsername().username());
 
-                }
-                callback.onResponse(response);
-            }
+                        }
+                        callback.onResponse(response);
+                    }
 
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-                callback.onFailure(e);
-            }
-        });
+                    @Override
+                    public void onFailure(@NotNull ApolloException e) {
+                        callback.onFailure(e);
+                    }
+                });
     }
 }

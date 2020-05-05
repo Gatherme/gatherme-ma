@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".EditProfile.View.Activities.EditDescriptionActivity"></activity>
+        <activity android:name=".UserFeed.View.Activities.FeedActivity"></activity>
+        <activity android:name=".EditProfile.View.Activities.EditDescriptionActivity" />
         <activity android:name=".Register.View.Activities.RegisterActivity" />
         <activity android:name=".Authentication.View.Activities.LoginActivity" />
         <activity android:name=".MainActivity" />

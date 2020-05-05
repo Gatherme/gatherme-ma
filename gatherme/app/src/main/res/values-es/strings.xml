@@ -27,4 +27,5 @@
     <string name="description">Descripción</string>
     <string name="save">Guardar</string>
     <string name="descriptionSubTitle">Hablanos sobre tí</string>
+    <string name="sing_out">Cerrar seción</string>
 </resources>

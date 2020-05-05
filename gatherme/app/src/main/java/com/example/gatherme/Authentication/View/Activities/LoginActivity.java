@@ -1,28 +1,27 @@
 package com.example.gatherme.Authentication.View.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.TokenAuthMutation;
 import com.example.UserSingInMutation;
-import com.example.gatherme.Authentication.Repository.UserAuth;
+import com.example.gatherme.Authentication.Repository.Model.UserAuth;
 import com.example.gatherme.Authentication.ViewModel.LoginViewModel;
+import com.example.gatherme.Data.Database.SharedPreferencesCon;
 import com.example.gatherme.Enums.FieldStatus;
-import com.example.gatherme.MainActivity;
+import com.example.gatherme.Enums.Reference;
 import com.example.gatherme.R;
 import com.example.gatherme.Register.View.Activities.RegisterActivity;
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,13 +35,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button singInButton;
     private Button singUpButton;
     private LoginViewModel viewModel;
-    private Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         configView();
+        checkToken();
     }
+
+
+
 
     private void configView() {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -55,8 +57,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //onClick
         singInButton.setOnClickListener((View.OnClickListener) this);
         singUpButton.setOnClickListener((View.OnClickListener) this);
-        //sharedPreferences
-        ctx = this;
 
     }
 
@@ -79,14 +79,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 Log.e(TAG,message);
                                 showToast(message);
                             }else{
+                                viewModel.setCtx(getApplicationContext());
+                                //Used shared preferences to save user info
+                                viewModel.getAndSaveUsersByEmail();
+                                String token = response.getData().singIn().token();
+                                Log.d(TAG,"token: "+token);
+                                SharedPreferencesCon.save(getApplicationContext(), Reference.TOKEN,token);
                                 viewModel.toHome();
+                                finish();
                                 showToast(getString(R.string.welcome));
                             }
                         }
 
                         @Override
                         public void onFailure(@NotNull ApolloException e) {
-
+                            Log.e(TAG,e.getMessage());
                         }
                     });
                 }else {
@@ -151,5 +158,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         thread.start();
+    }
+
+    private void checkToken(){
+        Log.d(TAG,"check Token");
+        String token = SharedPreferencesCon.read(getApplicationContext(),Reference.TOKEN);
+        if(!token.equals(SharedPreferencesCon.defValue)){
+            viewModel.setCtx(getApplicationContext());
+            viewModel.validateToken(new ApolloCall.Callback<TokenAuthMutation.Data>() {
+                @Override
+                public void onResponse(@NotNull Response<TokenAuthMutation.Data> response) {
+                    if (response.getData()!=null&&Boolean.parseBoolean(response.getData().authorization().authorization())){
+                        viewModel.toHome();
+                    }else {
+                        Log.i(TAG,"invalid token");
+                    }
+                }
+
+                @Override
+                public void onFailure(@NotNull ApolloException e) {
+                    Log.e(TAG,"Fail check token");
+                }
+            });
+        }else {
+            Log.i(TAG,"There is not a token");
+        }
     }
 }

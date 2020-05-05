@@ -2,6 +2,7 @@ package com.example.gatherme.Register.ViewModel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
@@ -10,10 +11,14 @@ import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.ExistUsernameQuery;
 import com.example.GetUserByEmailQuery;
+import com.example.RegisterUserMutation;
+import com.example.gatherme.Data.Database.SharedPreferencesCon;
 import com.example.gatherme.Enums.FieldStatus;
+import com.example.gatherme.Enums.Reference;
 import com.example.gatherme.MainActivity;
 import com.example.gatherme.Register.Repository.RegisterRepository;
 import com.example.gatherme.Register.Repository.UserRegisterModel;
+import com.example.gatherme.UserFeed.View.Activities.FeedActivity;
 import com.type.Register;
 
 import org.jetbrains.annotations.NotNull;
@@ -98,15 +103,21 @@ public class RegisterViewModel extends ViewModel {
                 .communities(user.getCommunities())
                 .activities(user.getActivities())
                 .gathers(user.getGathers()).build();
-        RegisterRepository.registerUser(registerUser, new ApolloCall.Callback() {
+        RegisterRepository.registerUser(registerUser, new ApolloCall.Callback<RegisterUserMutation.Data>() {
             @Override
-            public void onResponse(@NotNull Response response) {
-
+            public void onResponse(@NotNull Response<RegisterUserMutation.Data> response) {
+                Log.i(TAG, "User was register");
+                Log.d(TAG,response.getData().toString());
+                //Save data
+                SharedPreferencesCon.save(ctx, Reference.ID,response.getData().register().id());
+                SharedPreferencesCon.save(ctx,Reference.TOKEN,response.getData().register().token());
+                SharedPreferencesCon.save(ctx,Reference.EMAIL,user.getEmail());
+                SharedPreferencesCon.save(ctx,Reference.USERNAME,user.getUsername());
             }
 
             @Override
             public void onFailure(@NotNull ApolloException e) {
-
+                Log.e(TAG, e.getMessage());
             }
         });
 
@@ -140,8 +151,9 @@ public class RegisterViewModel extends ViewModel {
             }
         });
     }
-    public void toHome(){
-        Intent intent = new Intent(ctx, MainActivity.class);
+
+    public void toHome() {
+        Intent intent = new Intent(ctx, FeedActivity.class);
         ctx.startActivity(intent);
     }
 }

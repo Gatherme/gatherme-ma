@@ -26,4 +26,5 @@
     <string name="description">Description</string>
     <string name="save">Save</string>
     <string name="descriptionSubTitle">Tell us about yourself</string>
+    <string name="sing_out">Sing out</string>
 </resources>

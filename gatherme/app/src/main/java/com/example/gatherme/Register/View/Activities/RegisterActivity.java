@@ -134,8 +134,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     });
 
                                 } else {
+                                    //Register and save user info
+                                    viewModel.setCtx(getApplicationContext());
                                     viewModel.registerUser();
                                     viewModel.toHome();
+                                    finish();
                                 }
                             }
 

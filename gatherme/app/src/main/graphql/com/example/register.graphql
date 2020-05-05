@@ -3,6 +3,8 @@ mutation registerUser($user: register!){
         token
         error
         id
+        username
+        email
     }
 }
 query  existUsername($user: String!){

@@ -1,0 +1,12 @@
+mutation tokenAuth($token:String!){
+    authorization(token: {token: $token}){
+        authorization
+        message
+    }
+}
+mutation tokenOut($token:String!){
+    singOut(token: {token: $token}){
+        tokenstored{token}
+        message
+    }
+}

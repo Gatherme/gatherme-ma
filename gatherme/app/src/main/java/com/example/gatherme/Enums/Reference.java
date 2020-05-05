@@ -4,5 +4,6 @@ public enum Reference {
     TOKEN,
     ID,
     EMAIL,
-    USERNAME
+    USERNAME,
+    PASSWORD
 }
