@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.CreateRequestMutation;
 import com.example.CreateSuggestMutation;
 import com.example.GetSuggestionQuery;
 import com.example.UserByUsernameQuery;
+import com.example.gatherme.Data.API.ApolloConnector;
 import com.example.gatherme.Tinder.Repository.TinderRepository;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +18,25 @@ import org.jetbrains.annotations.NotNull;
 public class TinderViewModel extends ViewModel {
     private String id_user;
     private String username;
+    private String user_destination;
+    private String token;
     private Context ctx;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUser_destination() {
+        return user_destination;
+    }
+
+    public void setUser_destination(String user_destination) {
+        this.user_destination = user_destination;
+    }
 
     public String getUsername() {
         return username;
@@ -96,5 +116,19 @@ public class TinderViewModel extends ViewModel {
                 callback.onFailure(e);
             }
         }) ;
+    }
+
+    public void createRequest(ApolloCall.Callback<CreateRequestMutation.Data> callback){
+        TinderRepository.createRequest(id_user, user_destination, token, new ApolloCall.Callback<CreateRequestMutation.Data>() {
+            @Override
+            public void onResponse(@NotNull Response<CreateRequestMutation.Data> response) {
+                callback.onResponse(response);
+            }
+
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+                callback.onFailure(e);
+            }
+        });
     }
 }

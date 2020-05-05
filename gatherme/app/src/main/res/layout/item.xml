@@ -18,15 +18,15 @@
         android:layout_height="match_parent" />
 
     <ImageView
+        android:id="@+id/tinder_foto"
         android:padding="10dp"
-        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="247dp"
         app:srcCompat="@drawable/perfil"/>
 
     <TextView
-        android:id="@+id/helloText"
+        android:id="@+id/tinder_nombre"
         android:textSize="40sp"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -38,7 +38,7 @@
         android:layout_marginBottom="200dp"/>
 
     <TextView
-        android:id="@+id/helloText3"
+        android:id="@+id/tinder_ubicacion"
         android:textSize="25sp"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -49,9 +49,9 @@
         android:layout_marginBottom="170dp"/>
 
     <TextView
+        android:id="@+id/tinder_biografia"
         android:layout_marginBottom="10dp"
         android:padding="10dp"
-        android:id="@+id/helloText4"
         android:textSize="17sp"
         android:textColor="@android:color/white"
         android:layout_gravity="bottom"

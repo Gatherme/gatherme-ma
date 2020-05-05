@@ -5,6 +5,7 @@ import android.util.Log;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.CreateRequestMutation;
 import com.example.CreateSuggestMutation;
 import com.example.GetSuggestionQuery;
 import com.example.GetUserByEmailQuery;
@@ -85,6 +86,25 @@ public class TinderRepository {
                     }
                 }
 
+        );
+    }
+
+    public static void createRequest(String user_origin, String user_destination, String token, ApolloCall.Callback<CreateRequestMutation.Data> callback){
+        CreateRequestMutation createRequestMutation = CreateRequestMutation.builder().user_origin(user_origin).user_destination(user_destination).token(token).build();
+        ApolloConnector.setupApollo().mutate(createRequestMutation).enqueue(
+                new ApolloCall.Callback<CreateRequestMutation.Data>() {
+                    @Override
+                    public void onResponse(@NotNull Response<CreateRequestMutation.Data> response) {
+                        Log.d(TAG, "solicitud " +response.toString());
+                        callback.onResponse(response);
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull ApolloException e) {
+                        Log.d(TAG, "fffffffffffffffffffffffffffffffffffffffffffffffff solicitud " +e.toString());
+                        callback.onFailure(e);
+                    }
+                }
         );
     }
 }

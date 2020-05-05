@@ -3,6 +3,7 @@ package com.example.gatherme.Tinder.View.Activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.CreateRequestMutation;
 import com.example.CreateSuggestMutation;
 import com.example.GetSuggestionQuery;
 import com.example.UserByUsernameQuery;
@@ -25,20 +27,33 @@ import java.util.List;
 
 public class TinderActivity extends AppCompatActivity {
     private static final String TAG = "TinderActivity";
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    //private ArrayList<String> al;
+    //private ArrayAdapter<String> arrayAdapter;
     private int i;
     private TinderViewModel viewModel;
+    private arrayAdapter arrayAdapter;
+
+    ListView listView;
+    List<Card> rowItems;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        al = new ArrayList<>();
+
+        rowItems = new ArrayList<Card>();
+        Card item = new Card("Tomas22", "Bogota", "yo soy");
+        rowItems.add(item);
+        Card item3 = new Card("Tomass23", "Bogotas", "yo soys");
+        rowItems.add(item3);
+
+
+        //al = new ArrayList<>();
         setContentView(R.layout.activity_tinder);
         viewModel = new ViewModelProvider(this).get(TinderViewModel.class);
         viewModel.setId_user("1");
-        al.add("Tomás");
+     //   al.add("Tomás");
 
         viewModel.createSuggestion(new ApolloCall.Callback<CreateSuggestMutation.Data>() {
             @Override
@@ -72,7 +87,11 @@ public class TinderActivity extends AppCompatActivity {
                                         }else{
                                             String message = "********************** un suario ******************************";
                                             String nombre = response.getData().userByUsername().name();
-                                            al.add(nombre);
+                                            String ubicacion = response.getData().userByUsername().city();
+                                            String biografia = response.getData().userByUsername().description();
+                                            Card item = new Card(nombre, ubicacion, biografia);
+                                            rowItems.add(item);
+                                           // al.add(nombre);
                                             Log.d(TAG, nombre);
                                         }
                                     }
@@ -111,8 +130,8 @@ public class TinderActivity extends AppCompatActivity {
 
 
 
-
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
+        arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems );
+      //  arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(arrayAdapter);
 
@@ -124,7 +143,8 @@ public class TinderActivity extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                al.remove(0);
+                rowItems.remove(0);
+                //al.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -139,8 +159,29 @@ public class TinderActivity extends AppCompatActivity {
                 Toast.makeText(TinderActivity.this, "left", Toast.LENGTH_SHORT).show();
             }
 
+
             @Override
             public void onRightCardExit(Object dataObject) {
+                //TODO cambiar por nickname
+                String nick = rowItems.get(0).getNombre();
+
+                Log.d(TAG,"solicitud " + nick);
+                viewModel.setUser_destination(nick);
+                viewModel.setToken("");
+                viewModel.createRequest(new ApolloCall.Callback<CreateRequestMutation.Data>() {
+                    @Override
+                    public void onResponse(@NotNull Response<CreateRequestMutation.Data> response) {
+                        String message = "********************** solicitud ******************************";
+                        Log.d(TAG,message);
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull ApolloException e) {
+                        String message = "********************** Error solicitud ******************************";
+                        Log.e(TAG,message);
+                    }
+                });
+
                 Toast.makeText(TinderActivity.this, "right", Toast.LENGTH_SHORT).show();
             }
 

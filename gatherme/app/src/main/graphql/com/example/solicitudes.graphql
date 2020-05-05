@@ -1,0 +1,16 @@
+query sentRequests($user: String!){
+    sentRequests(user:{user:$user}){id user_origin user_destination status send_date}
+}
+
+
+mutation  createRequest ($user_origin: String!, $user_destination: String!, $token: String) {
+    createRequest( body: {
+        user_origin: $user_origin,
+        user_destination: $user_destination,
+        token: $token
+    }){
+        result,
+        error
+    }
+}
+
