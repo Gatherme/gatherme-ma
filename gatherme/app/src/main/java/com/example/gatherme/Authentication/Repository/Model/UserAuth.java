@@ -1,4 +1,4 @@
-package com.example.gatherme.Authentication.Repository;
+package com.example.gatherme.Authentication.Repository.Model;
 
 public class UserAuth {
     private  String email;

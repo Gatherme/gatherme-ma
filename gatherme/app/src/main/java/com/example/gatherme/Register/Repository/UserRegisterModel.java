@@ -23,7 +23,7 @@ public class UserRegisterModel {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.picture = "picture";
+        this.picture = "https://www.rogowaylaw.com/wp-content/uploads/Blank-Employee.jpg";
         this.description = "description";
         this.gender = gender;
         this.age = age;

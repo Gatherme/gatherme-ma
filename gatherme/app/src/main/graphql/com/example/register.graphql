@@ -1,5 +1,11 @@
 mutation registerUser($user: register!){
-    register(user: $user){token error}
+    register(user: $user){
+        token
+        error
+        id
+        username
+        email
+    }
 }
 query  existUsername($user: String!){
     userByUsername(username: $user){
