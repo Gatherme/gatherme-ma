@@ -1,4 +1,7 @@
 package com.example.gatherme.UserFeed.Repository.Model;
 
-public class UserFeedModel {
+import com.example.gatherme.EditProfile.Repository.Model.UserEditModel;
+
+public class UserFeedModel extends UserEditModel {
+
 }
