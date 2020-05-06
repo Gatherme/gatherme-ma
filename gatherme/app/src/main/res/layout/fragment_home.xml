@@ -7,14 +7,22 @@
     tools:context=".UserFeed.View.Fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/constructor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/letrero" />
+        android:src="@drawable/letrero"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="530dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/sing_out"
+        android:background="@drawable/button_round" />
 
 </FrameLayout>

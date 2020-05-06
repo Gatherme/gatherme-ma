@@ -17,7 +17,6 @@ import com.example.gatherme.UserFeed.ViewModel.UserFeedViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FeedActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-    private Button singOut;
     private UserFeedViewModel viewModel;
     private BottomNavigationView bottomNavigationView;
     private static final String TAG = "FeedActivity";
@@ -33,17 +32,6 @@ public class FeedActivity extends AppCompatActivity implements BottomNavigationV
 
     private void configView() {
         viewModel = new ViewModelProvider(this).get(UserFeedViewModel.class);
-        //Button
-        singOut = findViewById(R.id.buttonLogout);
-        singOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.setCtx(getApplicationContext());
-                viewModel.singOut();
-                finish();
-
-            }
-        });
         //Nav view
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -54,19 +42,23 @@ public class FeedActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Log.i(TAG,"onNavigationSelected: ");
+        Log.i(TAG,"onNavigationSelected-->"+item.getItemId());
         boolean ans = false;
+
         switch (item.getItemId()){
             case R.id.navigation_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                Log.i(TAG,"-->Home");
                 ans = true;
                 break;
             case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
+                Log.i(TAG,"-->Profile");
                 ans = true;
                 break;
             case R.id.navigation_tinder:
                 Log.i(TAG,"Nothing");
+                Log.i(TAG,"-->Tinder");
                 ans = true;
                 break;
 

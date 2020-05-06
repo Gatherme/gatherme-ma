@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         cityEditText = findViewById(R.id.cityEditText);
         ageEditText = findViewById(R.id.ageEditText);
         //button
-        button = findViewById(R.id.buttonSingUp2);
+        button = findViewById(R.id.buttonSignUp2);
         //Radio group
         radioGroup = findViewById(R.id.radioGroupSingUP);
         checkButton();

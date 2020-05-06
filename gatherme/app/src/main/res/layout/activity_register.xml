@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logoprinciipal" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameEditText"
@@ -105,6 +105,7 @@
         android:hint="@string/password"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/colorAccent"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +203,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/buttonSingUp2"
+        android:id="@+id/buttonSignUp2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
