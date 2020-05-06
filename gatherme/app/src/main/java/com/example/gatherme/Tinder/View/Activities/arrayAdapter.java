@@ -6,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.example.gatherme.R;
-
 import java.util.List;
 
 public class arrayAdapter extends ArrayAdapter<Card> {
@@ -17,6 +15,8 @@ public class arrayAdapter extends ArrayAdapter<Card> {
     public arrayAdapter(Context context, int resouceId, List<Card> items) {
         super(context, resouceId, items);
     }
+
+
     public View getView(int position, View convertView, ViewGroup parent){
         Card card_item = getItem(position);
 
@@ -35,6 +35,4 @@ public class arrayAdapter extends ArrayAdapter<Card> {
         return convertView;
 
     }
-
-
 }

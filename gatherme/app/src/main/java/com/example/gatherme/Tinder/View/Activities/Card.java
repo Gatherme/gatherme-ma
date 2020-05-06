@@ -4,11 +4,13 @@ public class Card {
     private String nombre;
     private String ubicacion;
     private String biografia;
+    private String nick;
 
-    public Card(String nombre, String ubicacion, String biografia) {
+    public Card(String nombre, String ubicacion, String biografia, String nick) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.biografia = biografia;
+        this.nick = nick;
     }
 
     public String getNombre() {
@@ -35,4 +37,11 @@ public class Card {
         this.biografia = biografia;
     }
 
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
 }
