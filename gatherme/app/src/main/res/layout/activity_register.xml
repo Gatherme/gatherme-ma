@@ -38,6 +38,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/name"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,8 +48,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:inputType="text" />
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,6 +60,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/email"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,8 +69,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:inputType="textEmailAddress" />
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="textEmailAddress"
+            android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -77,6 +81,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/username"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -86,8 +91,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:inputType="text" />
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,6 +104,7 @@
         android:layout_marginEnd="32dp"
         android:hint="@string/password"
         app:endIconMode="password_toggle"
+        app:endIconTint="@color/colorAccent"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,8 +113,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:inputType="textPassword" />
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="textPassword"
+            android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -117,6 +125,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/city"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,8 +134,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:inputType="text" />
+            android:backgroundTint="@color/colorPrimary"
+            android:inputType="text"
+            android:textColor="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -136,6 +146,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/age"
+        android:textColorHint="#B3DDDDDD"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioGroupSingUP"
@@ -144,8 +155,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorPrimary"
             android:inputType="number"
+            android:textColor="#FFFFFF"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,22 +176,28 @@
             android:id="@+id/maleR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/male" />
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/male"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#DDDDDD" />
 
         <RadioButton
             android:id="@+id/femaleR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/female" />
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/female"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#DDDDDD" />
 
         <RadioButton
             android:id="@+id/otherR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/other" />
+            android:buttonTint="@color/colorPrimary"
+            android:text="@string/other"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#DDDDDD" />
 
     </RadioGroup>
 
@@ -192,6 +210,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_round"
         android:text="@string/sing_up"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupSingUP" />
