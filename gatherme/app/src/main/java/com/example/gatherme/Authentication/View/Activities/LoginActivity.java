@@ -3,9 +3,7 @@ package com.example.gatherme.Authentication.View.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "LoginActivity";
     private TextInputLayout emailEditText;
     private TextInputLayout passwordEditText;
-    private Button singInButton;
-    private Button singUpButton;
+    private Button signInButton;
+    private Button signUpButton;
     private LoginViewModel viewModel;
 
     @Override
@@ -50,18 +48,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         emailEditText = findViewById(R.id.emailText);
         passwordEditText = findViewById(R.id.PasswordText);
         //Buttons
-        singInButton = findViewById(R.id.buttonSingin);
-        singUpButton = findViewById(R.id.buttonSingUp1);
+        signInButton = findViewById(R.id.buttonSign_in);
+        signUpButton = findViewById(R.id.buttonSignUp1);
         //onClick
-        singInButton.setOnClickListener((View.OnClickListener) this);
-        singUpButton.setOnClickListener((View.OnClickListener) this);
+        signInButton.setOnClickListener((View.OnClickListener) this);
+        signUpButton.setOnClickListener((View.OnClickListener) this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonSingin:
+            case R.id.buttonSign_in:
                 String email = emailEditText.getEditText().getText().toString();
                 String password = passwordEditText.getEditText().getText().toString();
                 FieldStatus emailStatus = viewModel.validateEmailField(email);
@@ -100,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.buttonSingUp1:
+            case R.id.buttonSignUp1:
                 openSingUp();
                 break;
         }
