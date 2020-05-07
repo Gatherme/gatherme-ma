@@ -31,6 +31,6 @@
     <string name="user_toast_register">El usuario ha sido registrado</string>
     <string name="toast_error_data">Error obteniendo datos de usuario</string>
     <string name="bottom_menu_profile">Perfil</string>
-    <string name="bottom_menu_tinder">Tinder</string>
+    <string name="bottom_menu_tinder">Conocer personas</string>
     <string name="bottom_menu_home">Inicio</string>
 </resources>

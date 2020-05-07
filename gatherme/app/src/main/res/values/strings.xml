@@ -30,9 +30,7 @@
     <string name="user_toast_register">user has been registered</string>
     <string name="toast_error_data">Error getting user data</string>
     <string name="bottom_menu_profile">Profile</string>
-    <string name="bottom_menu_tinder">Tinder</string>
+    <string name="bottom_menu_tinder">Meet peopleTinder</string>
     <string name="bottom_menu_home">Home</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-</resources>
+ </resources>
