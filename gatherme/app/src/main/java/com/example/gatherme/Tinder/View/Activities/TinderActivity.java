@@ -80,8 +80,11 @@ public class TinderActivity extends AppCompatActivity {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
                 // Ask for more data here
-                //Toast.makeText(TinderActivity.this, "empty", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+                if(rowItems.size()==0){
+                    //Toast.makeText(TinderActivity.this, "empty", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -95,7 +98,7 @@ public class TinderActivity extends AppCompatActivity {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 //Toast.makeText(TinderActivity.this, "click", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(getApplicationContext(), FeedActivity.class);
+
             }
         });
     }
