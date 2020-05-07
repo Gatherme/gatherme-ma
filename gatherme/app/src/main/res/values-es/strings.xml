@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gatherme</string>
-    <string name="email">Email</string>
+    <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
     <string name="sing_in">Iniciar sesión</string>
     <string name="sing_up">Registrar</string>
-    <string name="login">Inicio de seción</string>
+    <string name="login">Inicio de sesión</string>
     <string name="name">Nombre</string>
     <string name="username">Nombre de usuario</string>
     <string name="gender">Genero</string>
