@@ -2,6 +2,7 @@ package com.example.gatherme.UserFeed.View.Fragments;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.example.GetUserByIdQuery;
+import com.example.gatherme.EditProfile.View.Activities.EditDescriptionActivity;
+import com.example.gatherme.EditProfile.View.Activities.EditProfileImageActivity;
 import com.example.gatherme.R;
 import com.example.gatherme.UserFeed.ViewModel.ProfileViewModel;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
@@ -30,7 +33,7 @@ import com.squareup.picasso.Transformation;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final String TAG = "ProfileFragment";
     private TextView name;
     private TextView userName;
@@ -98,4 +101,19 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.imageButtonEditImage:
+                intent = new Intent(getContext(), EditProfileImageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.imageButtonEditDescription:
+                intent = new Intent(getContext(), EditDescriptionActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+    }
 }

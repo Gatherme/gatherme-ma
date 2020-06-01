@@ -32,5 +32,6 @@
     <string name="bottom_menu_profile">Profile</string>
     <string name="bottom_menu_tinder">Meet peopleTinder</string>
     <string name="bottom_menu_home">Home</string>
+    <string name="select_image">Select Image</string>
 
- </resources>
+</resources>
