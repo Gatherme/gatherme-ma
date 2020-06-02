@@ -34,4 +34,10 @@
     <string name="bottom_menu_tinder">Conocer personas</string>
     <string name="bottom_menu_home">Inicio</string>
     <string name="select_image">Selecciona una Imagen</string>
+    <string name="pick_image_ins">Haga clic en la imagen de perfil para abrir la galería y seleccione una imagen
+    </string>
+    <string name="alert">Alerta</string>
+    <string name="permissions_storage">La aplicación necesita permisos para almacenamiento</string>
+    <string name="dont_allow">No PERMITIR</string>
+    <string name="settings">CONFIGURACIONES</string>
 </resources>

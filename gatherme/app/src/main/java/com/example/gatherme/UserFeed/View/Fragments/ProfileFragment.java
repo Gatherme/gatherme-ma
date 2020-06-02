@@ -74,13 +74,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                         //Round image with a library
                         Transformation transformation = new RoundedTransformationBuilder()
                                 .cornerRadius(500)
-                                .borderWidth(3)
                                 .oval(false)
                                 .build();
                         //Set image
                         Picasso.get()
                                 .load(viewModel.getUser().getPicture())
                                 .placeholder(R.drawable.blankemploy)
+                                .resize(200, 200)
                                 .transform(transformation)
                                 .into(photo);
                         name.setText(viewModel.getUser().getName());
