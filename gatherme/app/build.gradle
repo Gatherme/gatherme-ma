@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.apollographql.apollo'
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -52,6 +53,11 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.google.firebase:firebase-core:17.4.2'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 
 
 }

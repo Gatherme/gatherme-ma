@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1070796727566",
+    "firebase_url": "https://gatherme-bc1b6.firebaseio.com",
+    "project_id": "gatherme-bc1b6",
+    "storage_bucket": "gatherme-bc1b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070796727566:android:a12654fad9bca632f9235f",
+        "android_client_info": {
+          "package_name": "com.example.gatherme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070796727566-c11e2jm82psr38rhpo1hps09v3u6rrqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcG5jzc6rYh9tlkXH9z46tqLryu6UGDHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070796727566-c11e2jm82psr38rhpo1hps09v3u6rrqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
