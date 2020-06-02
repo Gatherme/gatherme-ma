@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView description;
     private ImageView photo;
     private ProfileViewModel viewModel;
+    private ImageButton editPhoto;
+    private ImageButton editDesc;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -53,6 +56,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         userName = view.findViewById(R.id.usernameTextView);
         description = view.findViewById(R.id.description_textView);
         photo = view.findViewById(R.id.profileImg);
+        editPhoto = view.findViewById(R.id.imageButtonEditImage);
+        editDesc = view.findViewById(R.id.imageButtonEditDescription);
+        editDesc.setOnClickListener(this);
+        editPhoto.setOnClickListener(this);
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         viewModel.setCtx(getContext());
         viewModel.userInfo(new ApolloCall.Callback<GetUserByIdQuery.Data>() {
