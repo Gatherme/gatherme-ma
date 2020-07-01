@@ -69,4 +69,5 @@ public class FeedActivity extends AppCompatActivity implements BottomNavigationV
         }
         return ans;
     }
+
 }
