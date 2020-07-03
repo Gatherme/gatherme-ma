@@ -55,7 +55,7 @@ public class UserFeedRepository {
                          }
                 );
     }
-    /*
+
     public static void getActivities(String category, ApolloCall.Callback<GetActivitiesByCategoryQuery.Data> callback) {
         GetActivitiesByCategoryQuery getActivitiesByCategoryQuery = GetActivitiesByCategoryQuery.builder()
                 .category(category)
@@ -73,5 +73,5 @@ public class UserFeedRepository {
                     }
                 }
         );
-    }*/
+    }
 }

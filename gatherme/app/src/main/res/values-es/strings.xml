@@ -40,4 +40,13 @@
     <string name="permissions_storage">La aplicación necesita permisos para almacenamiento</string>
     <string name="dont_allow">No PERMITIR</string>
     <string name="settings">CONFIGURACIONES</string>
+    <string name="category">Categorías</string>
+    <string name="academic">Académico</string>
+    <string name="sport">Deporte</string>
+    <string name="games">Juegos</string>
+    <string name="culture">Cultural</string>
+    <string name="food">Comidas</string>
+    <string name="party">Fiesta</string>
+    <string name="others">Otros</string>
+    <string name="all">Todos</string>
 </resources>

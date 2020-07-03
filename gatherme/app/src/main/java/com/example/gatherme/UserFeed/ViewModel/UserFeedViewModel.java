@@ -73,21 +73,10 @@ public class UserFeedViewModel extends ViewModel {
         UserFeedRepository.getActivities(new ApolloCall.Callback<GetActivitiesQuery.Data>() {
             @Override
             public void onResponse(Response<GetActivitiesQuery.Data> response) {
-                if (response.getData().getAllActivities() == null){
-                    Log.e(TAG,"activities null");
+                if (response.getData().getAllActivities() == null) {
+                    Log.e(TAG, "activities null");
                 }
                 try {
-                    /*
-                    for (int i = 0; i < response.getData().getAllActivities().size(); i++) {
-                        GetActivitiesQuery.GetAllActivity activity = response.getData().getAllActivities().get(i);
-                        activityList.add(new ActivityFModel(
-                                activity.banner(),
-                                activity.nombre(),
-                                activity.administrador(),
-                                activity.fecha(),
-                                activity.hora(),
-                                activity.id()));
-                    }*/
 
                     for (GetActivitiesQuery.GetAllActivity activity : response.getData().getAllActivities()) {
                         activityList.add(new ActivityFModel(
@@ -107,13 +96,19 @@ public class UserFeedViewModel extends ViewModel {
             }
         });
     }
-    /*
+
     public void getActivities(String category, ApolloCall.Callback<GetActivitiesByCategoryQuery.Data> callback) {
+        activityList = new ArrayList<>();
         UserFeedRepository.getActivities(category, new ApolloCall.Callback<GetActivitiesByCategoryQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<GetActivitiesByCategoryQuery.Data> response) {
                 try {
-                    response.getData().getActivitiesByCategory();
+                    for (GetActivitiesByCategoryQuery.GetActivitiesByCategory activity : response.getData().getActivitiesByCategory()) {
+                        activityList.add(new ActivityFModel(
+                                activity.banner(), activity.nombre(), activity.administrador(),
+                                activity.fecha(), activity.hora(), activity.id()));
+                    }
+                    callback.onResponse(response);
                 } catch (NullPointerException e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -125,7 +120,7 @@ public class UserFeedViewModel extends ViewModel {
                 callback.onFailure(e);
             }
         });
-    }*/
+    }
 
     public void goToSingIn() {
         Intent intent = new Intent(ctx, LoginActivity.class);

@@ -4,5 +4,29 @@
 
     <item
         android:id="@+id/logout"
-        android:title="@string/sing_out" />
+        android:title="@string/sing_out"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/category_list"
+        android:icon="@drawable/ic_baseline_category_24"
+        android:title="@string/category">
+        <menu>
+            <item android:id="@+id/category_ac"
+                android:title="@string/academic"/>
+            <item android:id="@+id/category_sp"
+                android:title="@string/sport"/>
+            <item android:id="@+id/category_g"
+                android:title="@string/games"/>
+            <item android:id="@+id/category_cu"
+                android:title="@string/culture"/>
+            <item android:id="@+id/category_fo"
+                android:title="@string/food"/>
+            <item android:id="@+id/category_p"
+                android:title="@string/party"/>
+            <item android:id="@+id/category_oth"
+                android:title="@string/other"/>
+            <item android:id="@+id/category_all"
+                android:title="@string/other"/>
+        </menu>
+    </item>
 </menu>

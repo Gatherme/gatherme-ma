@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.example.GetActivitiesByCategoryQuery;
 import com.example.GetActivitiesQuery;
 import com.example.gatherme.R;
 import com.example.gatherme.UserFeed.View.Controls.ActivityAdapter;
@@ -65,8 +66,36 @@ public class HomeFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                viewModel.setCtx(getContext());
-                viewModel.singOut();
+                switch (item.getItemId()) {
+                    case R.id.logout:
+                        viewModel.setCtx(getContext());
+                        viewModel.singOut();
+                        break;
+                    case R.id.category_ac:
+                        getActivities("Academico");
+                        break;
+                    case R.id.category_sp:
+                        getActivities("Deporte");
+                        break;
+                    case R.id.category_g:
+                        getActivities("Juegos");
+                        break;
+                    case R.id.category_cu:
+                        getActivities("Cultural");
+                        break;
+                    case R.id.category_fo:
+                        getActivities("Comidas");
+                        break;
+                    case R.id.category_p:
+                        getActivities("Fiesta");
+                        break;
+                    case R.id.category_oth:
+                        getActivities("Otros");
+                        break;
+                    case R.id.category_all:
+                        getActivities();
+                        break;
+                }
                 return true;
             }
         });
@@ -94,6 +123,27 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(@NotNull ApolloException e) {
                 Log.e(TAG, "Error on get activities");
+            }
+        });
+    }
+
+    public void getActivities(String category) {
+        viewModel.setCtx(getContext());
+        viewModel.getActivities(category, new ApolloCall.Callback<GetActivitiesByCategoryQuery.Data>() {
+            @Override
+            public void onResponse(@NotNull Response<GetActivitiesByCategoryQuery.Data> response) {
+                Handler uiHandler = new Handler(Looper.getMainLooper());
+                uiHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setAdapter(new ActivityAdapter(Objects.requireNonNull(getContext()), viewModel.getActivityList()));
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(@NotNull ApolloException e) {
+                Log.e(TAG, "Error on get activities by category");
             }
         });
     }
