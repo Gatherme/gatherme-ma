@@ -38,5 +38,13 @@
     <string name="permissions_storage">App Needs Access to the Storage</string>
     <string name="dont_allow">DON\'T ALLOW</string>
     <string name="settings">SETTINGS</string>
-
+    <string name="category">Category</string>
+    <string name="academic">Academic</string>
+    <string name="sport">Sport</string>
+    <string name="games">Games</string>
+    <string name="culture">Culture</string>
+    <string name="food">Food</string>
+    <string name="party">Party</string>
+    <string name="others">Others</string>
+    <string name="all">All</string>
 </resources>
