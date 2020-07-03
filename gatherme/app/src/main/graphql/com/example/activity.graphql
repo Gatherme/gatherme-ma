@@ -1,0 +1,26 @@
+query getActivityById($id: Int!){
+    getActivityByID(id: $id){
+        id,
+        informacion,
+        nombre,
+        descripcion,
+        lista_miembros,
+        notas_adicionales,
+        categoria,
+        lugar,
+        hora,
+        fecha,
+        banner,
+        administrador
+    }
+}
+query getActivities{
+    getAllActivities{
+        id,banner,nombre,administrador,fecha,hora
+    }
+}
+query getActivitiesByCategory($category: String!){
+    getActivitiesByCategory(category: $category){
+        id,banner,nombre,administrador,fecha,hora
+    }
+}
